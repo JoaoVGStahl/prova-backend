@@ -6,7 +6,7 @@ namespace ProvaPub.Services
 {
     public class CustomerService : ServiceBase<Customer>
     {
-        TestDbContext _ctx;
+        private readonly TestDbContext _ctx;
 
         public CustomerService(TestDbContext ctx) : base(ctx)
         {

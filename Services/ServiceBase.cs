@@ -1,14 +1,14 @@
-﻿using ProvaPub.Models;
-using ProvaPub.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using ProvaPub.Models;
 
 namespace ProvaPub.Services
 {
     public class ServiceBase<E> where E : class
     {
-        TestDbContext _ctx;
+        private readonly DbContext _ctx;
         private readonly int itemsPerPage = 10;
 
-        public ServiceBase(TestDbContext ctx)
+        public ServiceBase(DbContext ctx)
         {
             _ctx = ctx;
         }

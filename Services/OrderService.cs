@@ -25,6 +25,7 @@ namespace ProvaPub.Services
                 PaymentsTypes.CreditCard => new CreditCardService(),
                 PaymentsTypes.PayPal => new PayPalService(),
                 PaymentsTypes.Boleto => new BoletoService(),
+                _ => throw new NullReferenceException()
             };
         }
     }
