@@ -13,10 +13,7 @@ namespace ProvaPub.Services
             _ctx = ctx;
         }
 
-        public Pagination<Customer> ListCustomers(int page)
-        {
-            return ListItems(page);
-        }
+        public Pagination<Customer> ListCustomers(int page) => ListItems(page);
 
         public async Task<bool> CanPurchase(int customerId, decimal purchaseValue)
         {
