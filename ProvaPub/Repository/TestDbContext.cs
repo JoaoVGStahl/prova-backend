@@ -7,11 +7,16 @@ namespace ProvaPub.Repository
 
     public class TestDbContext : DbContext
 	{
-		public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
+        public TestDbContext()
+        {
+
+        }
+
+        public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
 		{
 		}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
@@ -19,7 +24,7 @@ namespace ProvaPub.Repository
 			modelBuilder.Entity<Product>().HasData(GetProductSeed());
 		}
 
-		private static Customer[] GetCustomerSeed()
+		public static Customer[] GetCustomerSeed()
 		{
 			List<Customer> result = new();
 			for (int i = 0; i < 20; i++)
@@ -32,7 +37,7 @@ namespace ProvaPub.Repository
 			}
 			return result.ToArray();
 		}
-        private static Product[] GetProductSeed()
+        public static Product[] GetProductSeed()
 		{
 			List<Product> result = new();
 			for (int i = 0; i < 20; i++)
