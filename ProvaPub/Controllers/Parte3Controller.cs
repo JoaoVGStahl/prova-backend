@@ -22,7 +22,7 @@ namespace ProvaPub.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet("orders")]
+        [HttpPost("orders")]
         public async Task<Order> PlaceOrder(PaymentsTypes paymentMethod, decimal paymentValue, int customerId)
         {
             return await _orderService.PayOrder(paymentMethod, paymentValue, customerId);

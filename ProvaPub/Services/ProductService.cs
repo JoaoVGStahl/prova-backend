@@ -10,6 +10,6 @@ namespace ProvaPub.Services
 
         }
 
-        public Pagination<Product> ListProducts(int page) => ListItems(page);
+        public async Task<Pagination<Product>> ListProductsAsync(int page) => await ListItemsAsync(page);
     }
 }

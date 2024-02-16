@@ -13,15 +13,19 @@ namespace ProvaPub.Services
             _ctx = ctx;
         }
 
-        public Pagination<E> ListItems(int page)
+        public async Task<Pagination<E>> ListItemsAsync(int page)
         {
+            var totalItems = await _ctx.Set<E>().CountAsync();
+            var items = await _ctx.Set<E>()
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .ToListAsync();
+
             return new Pagination<E>()
             {
-                HasNext = false,
-                TotalCount = itemsPerPage,
-                Items = _ctx.Set<E>().Skip((page - 1) * itemsPerPage)
-                                     .Take(itemsPerPage)
-                                     .ToList()
+                HasNext = totalItems > page * itemsPerPage,
+                TotalCount = totalItems,
+                Items = items
             };
         }
     }

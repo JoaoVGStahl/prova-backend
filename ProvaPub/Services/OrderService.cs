@@ -7,6 +7,13 @@ namespace ProvaPub.Services
 {
     public class OrderService
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        public OrderService(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
         public async Task<Order> PayOrder(PaymentsTypes paymentMethod,decimal paymentValue, int customerId)
         {
             GetPaymentMethod(paymentMethod).Pay(paymentValue);
@@ -14,18 +21,20 @@ namespace ProvaPub.Services
             return await Task.FromResult(new Order()
             {
                 Value = paymentValue,
+                CustomerId = customerId,
+                OrderDate = DateTime.Now,
             });
         }
 
-        private static IPaymentMethod GetPaymentMethod(PaymentsTypes paymentType)
+        private IPaymentMethod GetPaymentMethod(PaymentsTypes paymentType)
         {
             return paymentType switch
             {
-                PaymentsTypes.Pix => new PixService(),
-                PaymentsTypes.CreditCard => new CreditCardService(),
-                PaymentsTypes.PayPal => new PayPalService(),
-                PaymentsTypes.Boleto => new BoletoService(),
-                _ => throw new NullReferenceException()
+                PaymentsTypes.Pix => _serviceProvider.GetRequiredService<PixService>(),
+                PaymentsTypes.CreditCard => _serviceProvider.GetRequiredService<CreditCardService>(),
+                PaymentsTypes.PayPal => _serviceProvider.GetRequiredService<PayPalService>(),
+                PaymentsTypes.Boleto => _serviceProvider.GetRequiredService<BoletoService>(),
+                _ => throw new ArgumentException("Unsupported payment type", nameof(paymentType))
             };
         }
     }

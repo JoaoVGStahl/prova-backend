@@ -28,11 +28,15 @@ namespace ProvaPub.Controllers
         }
 
         [HttpGet("products")]
-        public Pagination<Product> ListProducts(int page)
-            => _productService.ListProducts(page);
+        public async Task<Pagination<Product>> ListProductsAsync(int page)
+        {
+            return await _productService.ListProductsAsync(page);
+        }
 
         [HttpGet("customers")]
-        public Pagination<Customer> ListCustomers(int page)
-            => _customerService.ListCustomers(page);
+        public async Task<Pagination<Customer>> ListCustomersAsync(int page)
+        {
+            return await _customerService.ListCustomersAsync(page);
+        }
     }
 }

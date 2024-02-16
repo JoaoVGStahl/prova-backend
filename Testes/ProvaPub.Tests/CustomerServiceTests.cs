@@ -17,8 +17,9 @@ namespace ProvaPub.Tests
                 if (!context.Customers.Any())
                 {
                     context.Customers.AddRange(TestDbContext.GetCustomerSeed());
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+
             }
 
             var dbContext = new TestDbContext(options);
